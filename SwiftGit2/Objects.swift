@@ -56,6 +56,7 @@ public struct Signature {
 
 	/// Return an unsafe pointer to the `git_signature` struct.
 	/// Caller is responsible for freeing it with `git_signature_free`.
+
 	func makeUnsafeSignature() -> Result<UnsafeMutablePointer<git_signature>, NSError> {
 		var signature: UnsafeMutablePointer<git_signature>? = nil
 		let time = git_time_t(self.time.timeIntervalSince1970)	// Unix epoch time
