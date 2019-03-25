@@ -442,9 +442,9 @@ final public class Repository {
 					}
 					callbacks.payload = credentials.toPointer()
 					callbacks.credentials = credentialsCallback
-					connectResult = git_remote_connect(remote, GIT_DIRECTION_PUSH, &callbacks, nil)
+					connectResult = git_remote_connect(remote, GIT_DIRECTION_PUSH, &callbacks, nil,nil)
 				} else {
-					connectResult = git_remote_connect(remote, GIT_DIRECTION_PUSH, nil, nil)
+					connectResult = git_remote_connect(remote, GIT_DIRECTION_PUSH, nil, nil, nil)
 				}
 				guard connectResult == GIT_OK.rawValue else {
 					return Result.failure(NSError(gitError: connectResult, pointOfFailure: "git_remote_connect"))
@@ -598,7 +598,7 @@ final public class Repository {
 							}
 							let message = "Merge branch '\(localBranch.shortName ?? localBranch.name)'"
 							return commit(
-								tree: treeOID,
+								tree: OID(treeOID),
 								parents: parents,
 								message: message,
 								signature: Signature(name: author, email: email)
